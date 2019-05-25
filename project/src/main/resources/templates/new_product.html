@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th-"http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
+<title>Create new Product</title>
+</head>
+<body>
+     <div align-="center">
+     <h1>Create New Product</h1>
+     <br/>
+     <form action="#" th:action="@{/save}" th:object="${product}" method="post">
+     <table border="0" cellpadding="10">
+     <tr>
+     <td>Product Name:</td>
+     <td><input type="text" th:field="*{name} "/></td>
+     <span class="error_form" id="pname_error_message"></span>
+     </tr>
+     <tr>
+      <td>Brand:</td>
+      <td><input type="text" th:field="*{brand}"/></td>
+      <span class="error_form" id="brand_error_message"></span>
+      </tr>
+      <tr>
+          <td>Made in:</td>
+      <td><input type="text" th:field="*{madein}"/></td>
+      <span class="error_form" id="madein_error_message"></span>
+      </tr>
+      <tr>
+      
+      <tr>
+          <td>Price:</td>
+      <td><input type="text" th:field="*{price}"/></td>
+      <span class="error_form" id="price_error_message"></span>
+      </tr>
+      <tr>
+      <td colspan = "2"><button type = "submit">Save</button></td>
+      </tr>
+     </table>
+     
+     </form>
+     </div>
+<script type="text/javascript">
+      $(function() {
+         $("#pname_error_message").hide();
+         $("#brand_error_message").hide();
+         $("#madein_error_message").hide();
+         $("#price_error_message").hide();
+         var error_pname = false;
+         var error_brand = false;
+         var error_madein = false;
+         var error_price = false;
+        
+         $("#form_pname").focusout(function(){
+            check_pname();
+         });
+         $("#form_brand").focusout(function() {
+            check_brand();
+         });
+         $("#form_madein").focusout(function() {
+            check_madein();
+         });
+         $("#form_price").focusout(function() {
+            check_price();
+         });
+        
+         function check_pname() {
+            var pattern = /^[a-zA-Z]*$/;
+            var fname = $("#form_fname").val();
+            if (pattern.test(pname) && pname !== '') {
+               $("#pname_error_message").hide();
+               $("#form_pname").css("border-bottom","2px solid #34F458");
+            } else {
+               $("#pname_error_message").html("Should contain only Characters");
+               $("#pname_error_message").show();
+               $("#form_pname").css("border-bottom","2px solid #F90A0A");
+               error_pname = true;
+            }
+         }
+         function check_brand() {
+            var pattern = /^[a-zA-Z]*$/;
+            var sname = $("#form_brand").val()
+            if (pattern.test(brand) && brand !== '') {
+               $("#brand_error_message").hide();
+               $("#form_brand").css("border-bottom","2px solid #34F458");
+            } else {
+               $("#brand_error_message").html("Should contain only Characters");
+               $("#brand_error_message").show();
+               $("#form_brand").css("border-bottom","2px solid #F90A0A");
+               error_brand = true;
+            }
+         }
+         function check_madein() {
+            var password_length = $("#form_madein").val().length;
+            if (password_length < 8) {
+               $("#madein_error_message").html("Should contain only Characters");
+               $("#madein_error_message").show();
+               $("#form_madein").css("border-bottom","2px solid #F90A0A");
+               error_madein = true;
+            } else {
+               $("#madein_error_message").hide();
+               $("#form_madein").css("border-bottom","2px solid #34F458");
+            }
+         }
+         function check_retype_price() {
+            var price = $("#form_priced").val();
+            var retype_price = $("#form_retype_price").val();
+            if (price !== retype_password) {
+               $("#retype_price_error_message").html("only numbers");
+               $("#retype_price_error_message").show();
+               $("#form_retype_price").css("border-bottom","2px solid #F90A0A");
+               error_retype_price = true;
+            } else {
+               $("#retype_price_error_message").hide();
+               $("#form_retype_price").css("border-bottom","2px solid #34F458");
+            }
+         }
+       
+         $("#product").submit(function() {
+            error_pname = false;
+            error_brand = false;
+            error_madein = false;
+            error_price = false;
+            
+            check_pname();
+            check_brand();
+            check_madein();
+            check_price();
+           
+            if (error_pname === false && error_brand === false && error_madein === false && error_price === false ) {
+               alert(" Successfull");
+               return true;
+            } else {
+               alert("Please Fill the form Correctly");
+               return false;
+            }
+         });
+      });
+   </script>
+</body>
+</html>
